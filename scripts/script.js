@@ -4,9 +4,11 @@ const keyboardDiv = document.querySelector(".keyboard");
 const hangmanImage = document.querySelector(".hangman-box img");
 const gameModal = document.querySelector(".game-modal");
 const playAgainBtn = gameModal.querySelector("button");
+
 // Initializing game variables
 let currentWord, correctLetters, wrongGuessCount;
 const maxGuesses = 6;
+
 const resetGame = () => {
     // Ressetting game variables and UI elements
     correctLetters = [];
@@ -17,6 +19,7 @@ const resetGame = () => {
     keyboardDiv.querySelectorAll("button").forEach(btn => btn.disabled = false);
     gameModal.classList.remove("show");
 }
+
 const getRandomWord = () => {
     // Selecting a random word and hint from the wordList
     const { word, hint } = wordList[Math.floor(Math.random() * wordList.length)];
@@ -24,6 +27,7 @@ const getRandomWord = () => {
     document.querySelector(".hint-text b").innerText = hint;
     resetGame();
 }
+
 const gameOver = (isVictory) => {
     // After game complete.. showing modal with relevant details
     const modalText = isVictory ? `You found the word:` : 'The correct word was:';
@@ -32,6 +36,7 @@ const gameOver = (isVictory) => {
     gameModal.querySelector("p").innerHTML = `${modalText} <b>${currentWord}</b>`;
     gameModal.classList.add("show");
 }
+
 const initGame = (button, clickedLetter) => {
     // Checking if clickedLetter is exist on the currentWord
     if(currentWord.includes(clickedLetter)) {
@@ -50,10 +55,12 @@ const initGame = (button, clickedLetter) => {
     }
     button.disabled = true; // Disabling the clicked button so user can't click again
     guessesText.innerText = `${wrongGuessCount} / ${maxGuesses}`;
+
     // Calling gameOver function if any of these condition meets
     if(wrongGuessCount === maxGuesses) return gameOver(false);
     if(correctLetters.length === currentWord.length) return gameOver(true);
 }
+
 // Creating keyboard buttons and adding event listeners
 for (let i = 97; i <= 122; i++) {
     const button = document.createElement("button");
@@ -61,5 +68,6 @@ for (let i = 97; i <= 122; i++) {
     keyboardDiv.appendChild(button);
     button.addEventListener("click", (e) => initGame(e.target, String.fromCharCode(i)));
 }
+
 getRandomWord();
 playAgainBtn.addEventListener("click", getRandomWord);
