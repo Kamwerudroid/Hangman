@@ -10,7 +10,7 @@ let currentWord, correctLetters, wrongGuessCount;
 const maxGuesses = 6;
 
 const resetGame = () => {
-    // Ressetting game variables and UI elements
+    // Resetting game variables and UI elements
     correctLetters = [];
     wrongGuessCount = 0;
     hangmanImage.src = "images/hangman-0.svg";
@@ -23,7 +23,7 @@ const resetGame = () => {
 const getRandomWord = () => {
     // Selecting a random word and hint from the wordList
     const { word, hint } = wordList[Math.floor(Math.random() * wordList.length)];
-    currentWord = word; // Making currentWord as random word
+    currentWord = word; 
     document.querySelector(".hint-text b").innerText = hint;
     resetGame();
 }
