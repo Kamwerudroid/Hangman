@@ -10,7 +10,7 @@ const wordCategories = {
 let wordToGuess = '';
 let guessedLetters = [];
 let wrongGuesses = 0;
-const maxWrongGuesses = 6;
+const maxWrongGuesses = 10;
 let timer = 90;
 let timerInterval;
 let gameRunning = false;
