@@ -1,37 +1,94 @@
 <!DOCTYPE html>
-
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hangman Game JavaScript | CodingNepal</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="scripts/word-list.js" defer></script>
-    <script src="scripts/script.js" defer></script>
-  </head>
-  <body>    
-    <div class="game-modal">
-      <div class="content">
-        <img src="#" alt="gif" />
-        <h4>Game Over!</h4>
-        <p>The correct word was: <b>rainbow</b></p>
-        <button class="play-again">Play Again</button>
-      </div>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-[#5E63BA] flex items-center justify-center min-h-screen p-4">
+
+    <!-- Main Game Container -->
+    <div class="bg-white rounded-2xl shadow-xl p-4 max-w-2xl w-full flex flex-col items-center space-y-6">
+
+        <h1 class="text-4xl font-extrabold text-black">Hangman</h1>
+        <h2 class="text-3xl font-bold">Guide:</h2>
+        <p>Hangman involves guessing letters to complete a word before the timer runs out.</p>
+
+        <!-- Category Selection -->
+        <div class="w-full flex justify-center items-center space-x-2">
+            <label for="category-select" class="text-lg font-semibold text-black">Choose Category:</label>
+            <select id="category-select" class="p-2 rounded-lg border-2 border-black focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer">
+                <option value="" selected disabled>Select a category</option>
+                <option value="Animals">Animals</option>
+                <option value="Fruits">Fruits</option>
+                <option value="Countries">Countries</option>
+                <option value="Sport">Sport</option>
+                <option value="Cities">Cities</option>
+            </select>
+        </div>
+
+        <!-- Hangman and Word Display -->
+        <div id="game-stats" class="w-full flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-12 hidden">
+            <div class="hangman-svg-container flex-shrink-0">
+                <svg id="hangman-svg" viewBox="0 0 150 150" stroke="#4a5568" stroke-width="2" stroke-linecap="round"></svg>
+            </div>
+            
+            <div class="text-center flex-grow space-y-4">
+                <div class="flex items-center justify-center">
+                    <p id="timer" class="text-xl font-bold text-black rounded-full px-4 py-2 bg-[#5E63BA]">Time: 90s</p>
+                </div>
+                <h2 id="word-display" class="text-4xl md:text-5xl font-mono tracking-widest font-bold text-indigo-600 letter-spacing-wide">_ _ _ _ _</h2>
+            </div>
+        </div>
+
+        <!-- Keyboard -->
+        <div id="keyboard" class=" mt-8 pt-5 grid grid-cols-7 gap-2 md:gap-3 w-full max-w-md">
+            <!-- Keyboard buttons will be generated here by JavaScript -->
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="w-full flex justify-center space-x-4 mt-6">
+            <button id="leaderboard-btn" class="px-6 py-3 bg-[#5E63BA] text-white font-bold rounded-full shadow-lg hover:bg-[#a0a2ce] transition-colors">
+                Show Leaderboard
+            </button>
+        </div>
+
     </div>
-    <div class="container">
-      <div class="hangman-box">
-        <img src="#" draggable="false" alt="hangman-img" />
-        <h1>Hangman Game</h1>
-        <p>
-          Guess the letter to complete the word.
-        </p>
-      </div>
-      <div class="game-box">
-        <ul class="word-display"></ul>
-        <h4 class="hint-text">Hint: <b></b></h4>
-        <h4 class="guesses-text">Incorrect guesses: <b></b></h4>
-        <div class="keyboard"></div>
-      </div>
+
+    <!-- Modal Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+    <!-- Game Over/Win Modal -->
+    <div id="game-over-modal" class="fixed inset-0 flex items-center justify-center p-4 z-50 hidden modal">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 text-center space-y-4 modal-content">
+            <h3 id="modal-message" class="text-2xl font-bold text-gray-800"></h3>
+            <button id="modal-restart-btn" class="px-6 py-3 bg-indigo-500 text-white font-bold rounded-full shadow-lg hover:bg-indigo-600 transition-colors">
+                Restart Game
+            </button>
+        </div>
     </div>
-  </body>
+
+    <!-- Leaderboard Modal -->
+    <div id="leaderboard-modal" class="fixed inset-0 flex items-center justify-center p-4 z-50 hidden modal">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-sm w-full space-y-4 modal-content">
+            <div class="flex justify-between items-center border-b pb-2">
+                <h3 class="text-2xl font-bold text-gray-800">Leaderboard</h3>
+                <button id="leaderboard-close-btn" class="text-gray-400 hover:text-gray-600 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <ul id="leaderboard-list" class="space-y-2">
+                <!-- Leaderboard scores will be rendered here -->
+            </ul>
+        </div>
+    </div>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="script.js"></script>
+</body>
 </html>
